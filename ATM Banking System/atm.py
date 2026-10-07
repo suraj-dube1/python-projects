@@ -13,16 +13,16 @@ class Atm:
         """)
 
     def check_balance(self):
-        pin_code = input("Enter your pin")
+        pin_code = input("Enter your pin :")
         
         if(pin_code == self.pin):
-            print("you current balance is:",self.balance)
+            print("you current balance is :",self.balance)
         else:
             print("invalid pin")
         
 
     def deposit(self):
-        pin = input("enter your pin")
+        pin = input("enter your pin :")
 
         if(pin == self.pin):
             amount = int(input("enter you amount"))
@@ -30,5 +30,26 @@ class Atm:
             print("deposit succesfully")
         else:
             print("invalid pin")
+            
 
-cus = Atm()
+    def withdraw(self):
+        pin = input("enter you pin")
+
+        if (self.pin == pin):
+            amount = float(input("enter your amount"))
+            if amount > self.balance:
+                print("invalid amount")
+            else:
+                self.balance = self.balance - amount
+                print("withdraw succesfully")
+
+
+cus = Atm()   
+data = int(input("enter your choice"))
+
+if(data == 1):
+    pass
+elif(data == 2):
+    cus.deposit()
+elif(data == 3):
+    cus.withdraw()
