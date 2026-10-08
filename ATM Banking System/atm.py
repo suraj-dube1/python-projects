@@ -6,11 +6,22 @@ class Atm:
 
         print("""
                 what would you do with you bank account.
-                1. create pin
-                2. deposit 
-                3. withdraw
-                4. check balance 
+                1. Set pin
+                2. get pin
+                3. set pin
+                4. deposit 
+                5. withdraw
+                6. check balance 
         """)
+
+    def set_pin(self):
+        pin = input("enter you pin")
+        self.pin = pin 
+        print("pint set successfully")
+        
+
+    def get_pin(self):
+        print(self.pin)
 
     def check_balance(self):
         pin_code = input("Enter your pin :")
@@ -48,8 +59,10 @@ cus = Atm()
 data = int(input("enter your choice"))
 
 if(data == 1):
-    pass
+    cus.set_pin()
 elif(data == 2):
-    cus.deposit()
+    cus.get_pin()
 elif(data == 3):
+    cus.deposit()
+elif(data == 4):
     cus.withdraw()
