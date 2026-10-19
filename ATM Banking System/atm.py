@@ -1,69 +1,98 @@
-class Atm:
+class BankAccount:
 
     def __init__(self):
-        self.__balance = 0
+        self.__balance = 0.0
+
+
+    def deposit(self,amount):
+        if amount > 0:
+            self.__balance += amount
+            print("Deposit successful.")
+        else:
+            print("Invalid deposit amount.")
+
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("Enter a valid amount.")
+        elif amount > self.__balance:
+            print("Insufficient balance.")
+        else:
+            self.__balance -= amount
+            print("Withdrawal successful.")
+ 
+
+
+    def check_balance(self):
+        print("you current balance is :",self.__balance)
+
+
+    def get_balance(self):
+        return self.__balance
+
+
+
+class Atm(BankAccount):
+
+    def __init__(self):
+        super().__init__()
         self.__pin ="1234"
 
-        print("""
-                what would you do with you bank account.
-                1. Set pin
-                2. get pin
-                3. set pin
-                4. deposit 
-                5. withdraw
-                6. check balance 
-        """)
 
     def set_pin(self):
         pin = input("enter you pin")
         self.__pin = pin 
         print("pint set successfully")
+
+
+    def verify_pin(self):
+        pin = input("Enter your PIN: ")
+        return pin == self.__pin
         
-
-    def get_pin(self):
-        print(self.__pin)
-
 
     def check_balance(self):
-        pin_code = input("Enter your pin :")
         
-        if(pin_code == self.__pin):
-            print("you current balance is :",self.__balance)
+        if self.verify_pin():
+            super().check_balance()
         else:
             print("invalid pin")
         
 
     def deposit(self):
-        pin = input("enter your pin :")
-
-        if(pin == self.__pin):
+        if self.verify_pin():
             amount = int(input("enter you amount"))
-            self.__balance = self.__balance + amount
-            print("deposit succesfully")
-        else:
-            print("invalid pin")
+            super().deposit(amount)
             
 
     def withdraw(self):
-        pin = input("enter you pin")
-
-        if (self.__pin == pin):
-            amount = float(input("enter your amount"))
-            if amount > self.__balance:
-                print("invalid amount")
-            else:
-                self.__balance = self.__balance - amount
-                print("withdraw succesfully")
+        if self.verify_pin():
+            amount = int(input("enter your amount"))
+            super().withdraw(amount)
 
 
 cus = Atm()   
-data = int(input("enter your choice"))
 
-if(data == 1):
-    cus.set_pin()
-elif(data == 2):
-    cus.get_pin()
-elif(data == 3):
-    cus.deposit()
-elif(data == 4):
-    cus.withdraw()
+while True:
+    print("""
+        1. Set PIN
+        2. Deposit
+        3. Withdraw
+        4. Check balance
+        5. Exit
+    """)
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        cus.set_pin()
+    elif choice == "2":
+        cus.deposit()
+    elif choice == "3":
+        cus.withdraw()
+    elif choice == "4":
+        cus.check_balance()
+    elif choice == "5":
+        print("Thank you!")
+        break
+    else:
+        print("Invalid choice")
